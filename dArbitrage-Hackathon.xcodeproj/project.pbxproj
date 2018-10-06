@@ -1,0 +1,591 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		37DB93ED2168E0A90046586B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DB93EC2168E0A90046586B /* AppDelegate.swift */; };
+		37DB93EF2168E0A90046586B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DB93EE2168E0A90046586B /* ViewController.swift */; };
+		37DB93F22168E0A90046586B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37DB93F02168E0A90046586B /* Main.storyboard */; };
+		37DB93F42168E0AE0046586B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37DB93F32168E0AE0046586B /* Assets.xcassets */; };
+		37DB93F72168E0AE0046586B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37DB93F52168E0AE0046586B /* LaunchScreen.storyboard */; };
+		37DB94022168E0AE0046586B /* dArbitrage_HackathonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DB94012168E0AE0046586B /* dArbitrage_HackathonTests.swift */; };
+		37DB940D2168E0AE0046586B /* dArbitrage_HackathonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DB940C2168E0AE0046586B /* dArbitrage_HackathonUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37DB93FE2168E0AE0046586B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37DB93E12168E0A90046586B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37DB93E82168E0A90046586B;
+			remoteInfo = "dArbitrage-Hackathon";
+		};
+		37DB94092168E0AE0046586B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 37DB93E12168E0A90046586B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37DB93E82168E0A90046586B;
+			remoteInfo = "dArbitrage-Hackathon";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		37DB93E92168E0A90046586B /* dArbitrage-Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dArbitrage-Hackathon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37DB93EC2168E0A90046586B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		37DB93EE2168E0A90046586B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		37DB93F12168E0A90046586B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		37DB93F32168E0AE0046586B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		37DB93F62168E0AE0046586B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		37DB93F82168E0AE0046586B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37DB93FD2168E0AE0046586B /* dArbitrage-HackathonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dArbitrage-HackathonTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37DB94012168E0AE0046586B /* dArbitrage_HackathonTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dArbitrage_HackathonTests.swift; sourceTree = "<group>"; };
+		37DB94032168E0AE0046586B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37DB94082168E0AE0046586B /* dArbitrage-HackathonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dArbitrage-HackathonUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37DB940C2168E0AE0046586B /* dArbitrage_HackathonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dArbitrage_HackathonUITests.swift; sourceTree = "<group>"; };
+		37DB940E2168E0AE0046586B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		37DB93E62168E0A90046586B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37DB93FA2168E0AE0046586B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37DB94052168E0AE0046586B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		37DB93E02168E0A90046586B = {
+			isa = PBXGroup;
+			children = (
+				37DB93EB2168E0A90046586B /* dArbitrage-Hackathon */,
+				37DB94002168E0AE0046586B /* dArbitrage-HackathonTests */,
+				37DB940B2168E0AE0046586B /* dArbitrage-HackathonUITests */,
+				37DB93EA2168E0A90046586B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		37DB93EA2168E0A90046586B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				37DB93E92168E0A90046586B /* dArbitrage-Hackathon.app */,
+				37DB93FD2168E0AE0046586B /* dArbitrage-HackathonTests.xctest */,
+				37DB94082168E0AE0046586B /* dArbitrage-HackathonUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		37DB93EB2168E0A90046586B /* dArbitrage-Hackathon */ = {
+			isa = PBXGroup;
+			children = (
+				37DB93EC2168E0A90046586B /* AppDelegate.swift */,
+				37DB93EE2168E0A90046586B /* ViewController.swift */,
+				37DB93F02168E0A90046586B /* Main.storyboard */,
+				37DB93F32168E0AE0046586B /* Assets.xcassets */,
+				37DB93F52168E0AE0046586B /* LaunchScreen.storyboard */,
+				37DB93F82168E0AE0046586B /* Info.plist */,
+			);
+			path = "dArbitrage-Hackathon";
+			sourceTree = "<group>";
+		};
+		37DB94002168E0AE0046586B /* dArbitrage-HackathonTests */ = {
+			isa = PBXGroup;
+			children = (
+				37DB94012168E0AE0046586B /* dArbitrage_HackathonTests.swift */,
+				37DB94032168E0AE0046586B /* Info.plist */,
+			);
+			path = "dArbitrage-HackathonTests";
+			sourceTree = "<group>";
+		};
+		37DB940B2168E0AE0046586B /* dArbitrage-HackathonUITests */ = {
+			isa = PBXGroup;
+			children = (
+				37DB940C2168E0AE0046586B /* dArbitrage_HackathonUITests.swift */,
+				37DB940E2168E0AE0046586B /* Info.plist */,
+			);
+			path = "dArbitrage-HackathonUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		37DB93E82168E0A90046586B /* dArbitrage-Hackathon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37DB94112168E0AF0046586B /* Build configuration list for PBXNativeTarget "dArbitrage-Hackathon" */;
+			buildPhases = (
+				37DB93E52168E0A90046586B /* Sources */,
+				37DB93E62168E0A90046586B /* Frameworks */,
+				37DB93E72168E0A90046586B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "dArbitrage-Hackathon";
+			productName = "dArbitrage-Hackathon";
+			productReference = 37DB93E92168E0A90046586B /* dArbitrage-Hackathon.app */;
+			productType = "com.apple.product-type.application";
+		};
+		37DB93FC2168E0AE0046586B /* dArbitrage-HackathonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37DB94142168E0AF0046586B /* Build configuration list for PBXNativeTarget "dArbitrage-HackathonTests" */;
+			buildPhases = (
+				37DB93F92168E0AE0046586B /* Sources */,
+				37DB93FA2168E0AE0046586B /* Frameworks */,
+				37DB93FB2168E0AE0046586B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37DB93FF2168E0AE0046586B /* PBXTargetDependency */,
+			);
+			name = "dArbitrage-HackathonTests";
+			productName = "dArbitrage-HackathonTests";
+			productReference = 37DB93FD2168E0AE0046586B /* dArbitrage-HackathonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		37DB94072168E0AE0046586B /* dArbitrage-HackathonUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37DB94172168E0AF0046586B /* Build configuration list for PBXNativeTarget "dArbitrage-HackathonUITests" */;
+			buildPhases = (
+				37DB94042168E0AE0046586B /* Sources */,
+				37DB94052168E0AE0046586B /* Frameworks */,
+				37DB94062168E0AE0046586B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37DB940A2168E0AE0046586B /* PBXTargetDependency */,
+			);
+			name = "dArbitrage-HackathonUITests";
+			productName = "dArbitrage-HackathonUITests";
+			productReference = 37DB94082168E0AE0046586B /* dArbitrage-HackathonUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		37DB93E12168E0A90046586B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1000;
+				LastUpgradeCheck = 1000;
+				ORGANIZATIONNAME = uk.co.iologics;
+				TargetAttributes = {
+					37DB93E82168E0A90046586B = {
+						CreatedOnToolsVersion = 10.0;
+					};
+					37DB93FC2168E0AE0046586B = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 37DB93E82168E0A90046586B;
+					};
+					37DB94072168E0AE0046586B = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = 37DB93E82168E0A90046586B;
+					};
+				};
+			};
+			buildConfigurationList = 37DB93E42168E0A90046586B /* Build configuration list for PBXProject "dArbitrage-Hackathon" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 37DB93E02168E0A90046586B;
+			productRefGroup = 37DB93EA2168E0A90046586B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				37DB93E82168E0A90046586B /* dArbitrage-Hackathon */,
+				37DB93FC2168E0AE0046586B /* dArbitrage-HackathonTests */,
+				37DB94072168E0AE0046586B /* dArbitrage-HackathonUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		37DB93E72168E0A90046586B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37DB93F72168E0AE0046586B /* LaunchScreen.storyboard in Resources */,
+				37DB93F42168E0AE0046586B /* Assets.xcassets in Resources */,
+				37DB93F22168E0A90046586B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37DB93FB2168E0AE0046586B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37DB94062168E0AE0046586B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		37DB93E52168E0A90046586B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37DB93EF2168E0A90046586B /* ViewController.swift in Sources */,
+				37DB93ED2168E0A90046586B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37DB93F92168E0AE0046586B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37DB94022168E0AE0046586B /* dArbitrage_HackathonTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37DB94042168E0AE0046586B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37DB940D2168E0AE0046586B /* dArbitrage_HackathonUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37DB93FF2168E0AE0046586B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37DB93E82168E0A90046586B /* dArbitrage-Hackathon */;
+			targetProxy = 37DB93FE2168E0AE0046586B /* PBXContainerItemProxy */;
+		};
+		37DB940A2168E0AE0046586B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37DB93E82168E0A90046586B /* dArbitrage-Hackathon */;
+			targetProxy = 37DB94092168E0AE0046586B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		37DB93F02168E0A90046586B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37DB93F12168E0A90046586B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		37DB93F52168E0AE0046586B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				37DB93F62168E0AE0046586B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		37DB940F2168E0AF0046586B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		37DB94102168E0AF0046586B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		37DB94122168E0AF0046586B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKVT77JN2L;
+				INFOPLIST_FILE = "dArbitrage-Hackathon/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "None.dArbitrage-Hackathon";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		37DB94132168E0AF0046586B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKVT77JN2L;
+				INFOPLIST_FILE = "dArbitrage-Hackathon/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "None.dArbitrage-Hackathon";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		37DB94152168E0AF0046586B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKVT77JN2L;
+				INFOPLIST_FILE = "dArbitrage-HackathonTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "None.dArbitrage-HackathonTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dArbitrage-Hackathon.app/dArbitrage-Hackathon";
+			};
+			name = Debug;
+		};
+		37DB94162168E0AF0046586B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKVT77JN2L;
+				INFOPLIST_FILE = "dArbitrage-HackathonTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "None.dArbitrage-HackathonTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dArbitrage-Hackathon.app/dArbitrage-Hackathon";
+			};
+			name = Release;
+		};
+		37DB94182168E0AF0046586B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKVT77JN2L;
+				INFOPLIST_FILE = "dArbitrage-HackathonUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "None.dArbitrage-HackathonUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "dArbitrage-Hackathon";
+			};
+			name = Debug;
+		};
+		37DB94192168E0AF0046586B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKVT77JN2L;
+				INFOPLIST_FILE = "dArbitrage-HackathonUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "None.dArbitrage-HackathonUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "dArbitrage-Hackathon";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		37DB93E42168E0A90046586B /* Build configuration list for PBXProject "dArbitrage-Hackathon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37DB940F2168E0AF0046586B /* Debug */,
+				37DB94102168E0AF0046586B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37DB94112168E0AF0046586B /* Build configuration list for PBXNativeTarget "dArbitrage-Hackathon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37DB94122168E0AF0046586B /* Debug */,
+				37DB94132168E0AF0046586B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37DB94142168E0AF0046586B /* Build configuration list for PBXNativeTarget "dArbitrage-HackathonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37DB94152168E0AF0046586B /* Debug */,
+				37DB94162168E0AF0046586B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37DB94172168E0AF0046586B /* Build configuration list for PBXNativeTarget "dArbitrage-HackathonUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37DB94182168E0AF0046586B /* Debug */,
+				37DB94192168E0AF0046586B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 37DB93E12168E0A90046586B /* Project object */;
+}
