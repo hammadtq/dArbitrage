@@ -155,58 +155,62 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("combining data")
         //print(kyberArray)
         for kyberPair in kyberArray{
-            let searchString = "\(kyberPair[0])ETH"
-            //print(searchString)
-            let result = binanceArray.filter { (dataArray:[String]) -> Bool in
-                return dataArray.filter({ (string) -> Bool in
-                    return string.contains(searchString)
-                }).count > 0
+            let supportedTokens = ["ETH", "KNC", "OMG", "SNT", "ELF", "POWR", "MANA", "BAT", "REQ", "GTO", "RDN", "APPC", "ENG", "SALT", "BQX", "ADX", "AST", "RCN", "ZIL", "DAI", "LINK", "IOST", "STORM", "BBO", "COFI", "MOC", "BITX"]
+            if supportedTokens.contains(kyberPair[0]) {
+                let searchString = "\(kyberPair[0])ETH"
+                //print(searchString)
+                let result = binanceArray.filter { (dataArray:[String]) -> Bool in
+                    return dataArray.filter({ (string) -> Bool in
+                        return string.contains(searchString)
+                    }).count > 0
+                }
+                
+                if(!result.isEmpty){
+                    //print(result)
+                    for binancePair in result{
+                        //print ("Binance pair \(binancePair)")
+                        //print("Kyber pair \(kyberPair)")
+                        
+                        
+                        let tradePair = kyberPair[0]
+                        var buyExchangePrice = ""
+                        var sellExchangePrice = ""
+                        var buyExchangeLabel = ""
+                        var sellExchangeLabel = ""
+                        var percentageLabel = ""
+                        let kyberPairPrice = Double(kyberPair[1])!
+                        let binancePairPrice = Double(binancePair[1])!
+                        if kyberPairPrice < binancePairPrice {
+                            
+                            
+                            let difference = binancePairPrice - kyberPairPrice
+                            let average = (kyberPairPrice + binancePairPrice)/2
+                            let percentageIncrease = (difference/average)*100
+                            
+                            buyExchangeLabel = "Kyber"
+                            buyExchangePrice = String(format: "%.8f", kyberPairPrice)
+                            sellExchangeLabel = "Binance"
+                            sellExchangePrice = binancePair[1]
+                            percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
+                            
+                        }else {
+                            
+                            
+                            
+                            let difference = binancePairPrice - kyberPairPrice
+                            let average = (kyberPairPrice + binancePairPrice)/2
+                            let percentageIncrease = (difference/average)*100
+                            buyExchangeLabel = "Binance"
+                            buyExchangePrice = binancePair[1]
+                            sellExchangeLabel = "Kyber"
+                            sellExchangePrice = String(format: "%.8f", kyberPairPrice)
+                            percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
+                        }
+                        let eachPrice = [tradePair, percentageLabel, buyExchangeLabel, buyExchangePrice, sellExchangeLabel, sellExchangePrice]
+                        priceArray.append(eachPrice)
+                    }
             }
             
-            if(!result.isEmpty){
-                //print(result)
-                for binancePair in result{
-                    //print ("Binance pair \(binancePair)")
-                    //print("Kyber pair \(kyberPair)")
-
-                    
-                    let tradePair = kyberPair[0]
-                    var buyExchangePrice = ""
-                    var sellExchangePrice = ""
-                    var buyExchangeLabel = ""
-                    var sellExchangeLabel = ""
-                    var percentageLabel = ""
-                    let kyberPairPrice = Double(kyberPair[1])!
-                    let binancePairPrice = Double(binancePair[1])!
-                    if kyberPairPrice < binancePairPrice {
-                        
-                        
-                        let difference = binancePairPrice - kyberPairPrice
-                        let average = (kyberPairPrice + binancePairPrice)/2
-                        let percentageIncrease = (difference/average)*100
-                        
-                        buyExchangeLabel = "Kyber"
-                        buyExchangePrice = String(format: "%.8f", kyberPairPrice)
-                        sellExchangeLabel = "Binance"
-                        sellExchangePrice = binancePair[1]
-                        percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
-                        
-                    }else {
-                        
-                        
-                        
-                        let difference = binancePairPrice - kyberPairPrice
-                        let average = (kyberPairPrice + binancePairPrice)/2
-                        let percentageIncrease = (difference/average)*100
-                        buyExchangeLabel = "Binance"
-                        buyExchangePrice = binancePair[1]
-                        sellExchangeLabel = "Kyber"
-                        sellExchangePrice = String(format: "%.8f", kyberPairPrice)
-                        percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
-                    }
-                    let eachPrice = [tradePair, percentageLabel, buyExchangeLabel, buyExchangePrice, sellExchangeLabel, sellExchangePrice]
-                    priceArray.append(eachPrice)
-                }
             }
             
         }
