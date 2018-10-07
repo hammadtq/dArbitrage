@@ -23,13 +23,16 @@ class priceTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         oneExchangePrice.adjustsFontSizeToFitWidth = true
+        oneEchangeLabel.adjustsFontSizeToFitWidth = true
+        differenceLabel.adjustsFontSizeToFitWidth = true
         pairLabel.adjustsFontSizeToFitWidth = true
+        secondExchangePrice.adjustsFontSizeToFitWidth = true
     }
 }
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
+    var selectedCell: IndexPath = []
     fileprivate var coordinator: KWCoordinator?
     var priceArray = [[String]]()
     var kyberArray = [[String]]()
@@ -40,6 +43,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView = UIView()
         tableView.dataSource = self
         tableView.delegate = self
         getKyberPrices(completeFunc: self.getOtherPrices)
@@ -99,6 +103,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getKyberPrices(completeFunc: @escaping () -> Void) {
+        showProgress()
         let todoEndpoint: String = "https://tracker.kyber.network/api/tokens/pairs"
         Alamofire.request(todoEndpoint, method: .get)
             .responseJSON { response in
@@ -126,7 +131,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func getBinancePrices(completeFunc: @escaping () -> Void) {
         print("getting Binance data")
-        showProgress()
         let todoEndpoint: String = "https://api.binance.com/api/v3/ticker/price"
         Alamofire.request(todoEndpoint, method: .get)
             .responseJSON { response in
@@ -162,12 +166,45 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if(!result.isEmpty){
                 //print(result)
                 for binancePair in result{
-                    print ("Binance pair \(binancePair)")
-                    print("Kyber pair \(kyberPair)")
-                    var kyberPairPrice = Double(kyberPair[1])!
-                    kyberPairPrice = kyberPairPrice.rounded(toPlaces: 8)
-                    let KyperPriceStr = String(format:"%f", kyberPairPrice)
-                    let eachPrice = [kyberPair[0], kyberPair[1], binancePair[0], binancePair[1]]
+                    //print ("Binance pair \(binancePair)")
+                    //print("Kyber pair \(kyberPair)")
+
+                    
+                    let tradePair = kyberPair[0]
+                    var buyExchangePrice = ""
+                    var sellExchangePrice = ""
+                    var buyExchangeLabel = ""
+                    var sellExchangeLabel = ""
+                    var percentageLabel = ""
+                    let kyberPairPrice = Double(kyberPair[1])!
+                    let binancePairPrice = Double(binancePair[1])!
+                    if kyberPairPrice < binancePairPrice {
+                        
+                        
+                        let difference = binancePairPrice - kyberPairPrice
+                        let average = (kyberPairPrice + binancePairPrice)/2
+                        let percentageIncrease = (difference/average)*100
+                        
+                        buyExchangeLabel = "Kyber"
+                        buyExchangePrice = String(format: "%.8f", kyberPairPrice)
+                        sellExchangeLabel = "Binance"
+                        sellExchangePrice = binancePair[1]
+                        percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
+                        
+                    }else {
+                        
+                        
+                        
+                        let difference = binancePairPrice - kyberPairPrice
+                        let average = (kyberPairPrice + binancePairPrice)/2
+                        let percentageIncrease = (difference/average)*100
+                        buyExchangeLabel = "Binance"
+                        buyExchangePrice = binancePair[1]
+                        sellExchangeLabel = "Kyber"
+                        sellExchangePrice = String(format: "%.8f", kyberPairPrice)
+                        percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
+                    }
+                    let eachPrice = [tradePair, percentageLabel, buyExchangeLabel, buyExchangePrice, sellExchangeLabel, sellExchangePrice]
                     priceArray.append(eachPrice)
                 }
             }
@@ -196,11 +233,26 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "priceCell", for: indexPath) as! priceTableViewCell
         cell.pairLabel.text = "\(priceArray[indexPath.item][0])/ETH"
-        cell.oneExchangePrice.text = priceArray[indexPath.item][1]
-        cell.secondExchangePrice.text = priceArray[indexPath.item][3]
-        print(priceArray[indexPath.item])
+        cell.differenceLabel.text = priceArray[indexPath.item][1]
+        cell.oneEchangeLabel.text = priceArray[indexPath.item][2]
+        cell.oneExchangePrice.text = priceArray[indexPath.item][3]
+        cell.secondExchangeLabel.text = priceArray[indexPath.item][4]
+        cell.secondExchangePrice.text = priceArray[indexPath.item][5]
+        //print(priceArray[indexPath.item])
         //cell.textLabel?.textColor = UIColor.flatWhite
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("This cell from the chat list was selected: \(indexPath.row)")
+        selectedCell = indexPath
+        print(priceArray[indexPath.item])
+        let selectedArray = priceArray[indexPath.item]
+        let defaults = UserDefaults.standard
+        defaults.set(selectedArray, forKey: "selectedPair")
+        
+        performSegue(withIdentifier: "goToDetails", sender: self)
     }
     
     func reloadTableData(){
