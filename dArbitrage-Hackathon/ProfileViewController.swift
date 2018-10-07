@@ -19,7 +19,7 @@ class profileTableViewCell: UITableViewCell {
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
     
     var tokenArray = [[String]]()
-    let privateKey : String = "3035a231c9f08f56459751aaa9b15c2de8848722f32b4b75d688624fba617a94"
+    let privateKey : String = "xxxxxxxxxxxxx"
     let walletAddress : String = "0x54a56fE3c98Fc9cFeC5609eEAB228a721deF40d1"
     
     @IBOutlet weak var tableView: UITableView!
