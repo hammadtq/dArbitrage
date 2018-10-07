@@ -7,208 +7,218 @@
 //
 
 import UIKit
-import QRCodeReaderViewController
 import KyberWidget
+import Alamofire
+import SwiftyJSON
+import MBProgressHUD
 
-class ViewController: UIViewController {
+class priceTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var differenceLabel: UILabel!
+    @IBOutlet weak var pairLabel: UILabel!
+    @IBOutlet weak var oneEchangeLabel: UILabel!
+    @IBOutlet weak var secondExchangeLabel: UILabel!
+    @IBOutlet weak var oneExchangePrice: UILabel!
+    @IBOutlet weak var secondExchangePrice: UILabel!
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        oneExchangePrice.adjustsFontSizeToFitWidth = true
+        pairLabel.adjustsFontSizeToFitWidth = true
+    }
+}
+
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var tokenSymbolTextField: UITextField!
-    @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var continueButton: UIButton!
-    @IBOutlet weak var envSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var signerTextField: UITextField!
-    @IBOutlet weak var commissionIDTextField: UITextField!
-    @IBOutlet weak var flowTypeSegmentedControl: UISegmentedControl!
     
-    var qrcodeID: Int = 0
     fileprivate var coordinator: KWCoordinator?
+    var priceArray = [[String]]()
+    var kyberArray = [[String]]()
+    var binanceArray = [[String]]()
+    @IBOutlet weak var buyTokenTextField: UITextField!
     
+    @IBOutlet weak var buyButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.continueButton.layer.cornerRadius = 4.0
-        self.continueButton.clipsToBounds = true
-        self.flowTypeSegmentedControlDidChange(self.flowTypeSegmentedControl)
+        tableView.dataSource = self
+        tableView.delegate = self
+        getKyberPrices(completeFunc: self.getOtherPrices)
     }
     
-    @IBAction func continueButtonPressed(_ sender: Any) {
-        let address = self.addressTextField.text ?? ""
-        let symbol = self.tokenSymbolTextField.text
-        let amount: Double? = {
-            if let text = self.amountTextField.text, !text.isEmpty {
-                return Double(text)
-            }
-            return nil
-        }()
-        let envID = self.envSegmentedControl.selectedSegmentIndex
-        
-        //    let string = KWStringConfig.current
-        //    let config = KWThemeConfig.current
-        let network: KWEnvironment = {
-            if envID == 0 { return .ropsten }
-            if envID == 1 { return .staging }
-            return .production
-        }()
-        let signer: String? = {
-            if let text = self.signerTextField.text, !text.isEmpty { return text }
-            return nil
-        }()
-        let commissionID: String? = {
-            if let text = self.commissionIDTextField.text, !text.isEmpty { return text }
-            return nil
-        }()
+    @IBAction func buyButtonPressed(_ sender: Any) {
+        buyTokens(receiveToken: "ETH", receiveAmount: 0.001604, network: KWEnvironment.ropsten, signer: "", commissionId: "", pinnedTokens: "ETH_KNC_DAI")
+    }
+    
+    func payTokens(receiveAddr : String, receiveToken : String, receiveAmount : Double, network : KWEnvironment,
+                   signer : String, commissionId : String, productName : String, productAvatar : String, productAvatarImage : UIImage){
         do {
-            if self.flowTypeSegmentedControl.selectedSegmentIndex == 0 {
-                // Payment
-                self.coordinator = try KWPayCoordinator(
-                    baseViewController: self,
-                    receiveAddr: address,
-                    receiveToken: symbol ?? "",
-                    receiveAmount: amount,
-                    network: network,
-                    signer: signer,
-                    commissionId: commissionID,
-                    productName: "Etheremon",
-                    productAvatar: "https://pbs.twimg.com/media/DVgWFLTVwAAUarj.png",
-                    productAvatarImage: nil
-                )
-            } else if self.flowTypeSegmentedControl.selectedSegmentIndex == 1 {
-                // Swap
-                self.coordinator = try KWSwapCoordinator(
-                    baseViewController: self,
-                    network: network,
-                    signer: signer,
-                    commissionId: commissionID
-                )
-            } else {
-                self.coordinator = try KWBuyCoordinator(
-                    baseViewController: self,
-                    receiveToken: symbol!,
-                    receiveAmount: amount,
-                    network: network,
-                    signer: signer,
-                    commissionId: commissionID
-                )
-            }
-            self.coordinator?.delegate = self
+            self.coordinator = try KWPayCoordinator(
+                baseViewController: self,
+                receiveAddr : receiveAddr,
+                receiveToken: receiveToken,
+                receiveAmount: receiveAmount,
+                network: network, // ETH network, default ropsten
+                signer: signer,
+                commissionId: commissionId,
+                productName: productName,
+                productAvatar: productAvatar,
+                productAvatarImage: productAvatarImage
+            )
+        } catch {}
+    }
+    
+    func swapTokens(network : KWEnvironment,
+                    signer : String, commissionId : String){
+        do {
+            self.coordinator = try KWSwapCoordinator(
+                baseViewController: self,
+                network: network, // ETH network, default ropsten
+                signer: signer,
+                commissionId: commissionId
+            )
+        } catch {}
+    }
+    
+    func buyTokens(receiveToken : String, receiveAmount : Double, network : KWEnvironment,
+                   signer : String, commissionId : String, pinnedTokens : String){
+        do {
+            self.coordinator = try KWBuyCoordinator(
+                baseViewController: self,
+                receiveToken: receiveToken,
+                receiveAmount: receiveAmount,
+                network: network, // ETH network, default ropsten
+                signer: nil,
+                commissionId: nil
+            )
+            // set delegate to receive transaction data
+            self.coordinator?.delegate = self as? KWCoordinatorDelegate
+            
+            // show the widget
             self.coordinator?.start()
-        } catch {
-            print("Can not init coordinator")
+        } catch {}
+    }
+    
+    func getKyberPrices(completeFunc: @escaping () -> Void) {
+        let todoEndpoint: String = "https://tracker.kyber.network/api/tokens/pairs"
+        Alamofire.request(todoEndpoint, method: .get)
+            .responseJSON { response in
+                //print (response.result.isSuccess)
+                if response.result.isSuccess {
+                    let json : JSON = JSON(response.result.value!)
+                    //print(json)
+                    for element in json{
+                        //print (element)
+                        let eachPrice = ["\(element.1["symbol"].stringValue)", element.1["currentPrice"].stringValue]
+                        self.kyberArray.append(eachPrice)
+                    }
+                    completeFunc()
+                    
+                } else {
+                    print("Error: \(String(describing: response.result.error))")
+                    
+                }
         }
     }
     
-    @IBAction func envSegmentedControlDidChange(_ sender: UISegmentedControl) {
+    func getOtherPrices(){
+        getBinancePrices(completeFunc: combineMarketData)
     }
     
-    @IBAction func addressToPayQRButtonPressed(_ sender: Any) {
-        self.presentQRCode(with: 0)
-    }
-    
-    @IBAction func signerQRButtonPressed(_ sender: Any) {
-        self.presentQRCode(with: 1)
-    }
-    
-    @IBAction func commissionQRButtonPressed(_ sender: Any) {
-        self.presentQRCode(with: 2)
-    }
-    
-    @IBAction func flowTypeSegmentedControlDidChange(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0 {
-            // payment
-            self.addressTextField.text = "0x63b42a7662538a1da732488c252433313396eade"
-            self.addressTextField.isEnabled = true
-            
-            self.tokenSymbolTextField.isEnabled = true
-            
-            self.amountTextField.text = ""
-            self.amountTextField.isEnabled = true
-        } else if sender.selectedSegmentIndex == 1 {
-            // swap
-            self.addressTextField.text = ""
-            self.addressTextField.isEnabled = false
-            
-            self.tokenSymbolTextField.isEnabled = false
-            self.tokenSymbolTextField.text = ""
-            
-            self.amountTextField.text = ""
-            self.amountTextField.isEnabled = false
-        } else {
-            self.addressTextField.text = ""
-            self.addressTextField.isEnabled = false
-            
-            self.tokenSymbolTextField.text = "ETH"
-            self.tokenSymbolTextField.isEnabled = true
-            
-            self.amountTextField.text = "0.001"
-            self.amountTextField.isEnabled = true
+    func getBinancePrices(completeFunc: @escaping () -> Void) {
+        print("getting Binance data")
+        showProgress()
+        let todoEndpoint: String = "https://api.binance.com/api/v3/ticker/price"
+        Alamofire.request(todoEndpoint, method: .get)
+            .responseJSON { response in
+                //print (response.result.isSuccess)
+                if response.result.isSuccess {
+                    let json : JSON = JSON(response.result.value!)
+                    //print(json)
+                    for element in json{
+                        //print (element)
+                        let eachPrice = [element.1["symbol"].stringValue, element.1["price"].stringValue]
+                        self.binanceArray.append(eachPrice)
+                    }
+                    completeFunc()
+                } else {
+                    print("Error: \(String(describing: response.result.error))")
+                    
+                }
         }
     }
     
-    fileprivate func presentQRCode(with ID: Int) {
-        self.qrcodeID = ID
-        let qrcode = QRCodeReaderViewController()
-        qrcode.delegate = self
-        self.present(qrcode, animated: true, completion: nil)
-    }
-}
-
-extension ViewController: QRCodeReaderDelegate {
-    func readerDidCancel(_ reader: QRCodeReaderViewController!) {
-        reader.dismiss(animated: true, completion: nil)
-    }
-    
-    func reader(_ reader: QRCodeReaderViewController!, didScanResult result: String!) {
-        reader.dismiss(animated: true) {
-            if self.qrcodeID == 0 {
-                // address to pay
-                if self.addressTextField.isEnabled { self.addressTextField.text = result }
-            } else if self.qrcodeID == 1 {
-                // signer
-                self.signerTextField.text = result
-            } else if self.qrcodeID == 2 {
-                // commission ID
-                self.commissionIDTextField.text = result
+    func combineMarketData(){
+        print("combining data")
+        //print(kyberArray)
+        for kyberPair in kyberArray{
+            let searchString = "\(kyberPair[0])ETH"
+            //print(searchString)
+            let result = binanceArray.filter { (dataArray:[String]) -> Bool in
+                return dataArray.filter({ (string) -> Bool in
+                    return string.contains(searchString)
+                }).count > 0
             }
+            
+            if(!result.isEmpty){
+                //print(result)
+                for binancePair in result{
+                    print ("Binance pair \(binancePair)")
+                    print("Kyber pair \(kyberPair)")
+                    var kyberPairPrice = Double(kyberPair[1])!
+                    kyberPairPrice = kyberPairPrice.rounded(toPlaces: 8)
+                    let KyperPriceStr = String(format:"%f", kyberPairPrice)
+                    let eachPrice = [kyberPair[0], kyberPair[1], binancePair[0], binancePair[1]]
+                    priceArray.append(eachPrice)
+                }
+            }
+            
         }
+        self.reloadTableData()
     }
-}
-
-extension ViewController: KWCoordinatorDelegate {
+    
     func coordinatorDidCancel() {
-        self.coordinator?.stop(completion: {
-            self.coordinator = nil
-        })
+        // TODO: handle user cancellation
     }
     
     func coordinatorDidFailed(with error: KWError) {
-        self.coordinator?.stop(completion: {
-            let errorMessage: String = {
-                switch error {
-                case .unsupportedToken: return "Unsupported Tokens"
-                case .invalidAddress(let errorMessage):
-                    return errorMessage
-                case .invalidToken(let errorMessage):
-                    return errorMessage
-                case .invalidAmount: return "Invalid Amount"
-                case .failedToLoadSupportedToken(let errorMessage):
-                    return errorMessage
-                case .failedToSendTransaction(let errorMessage):
-                    return errorMessage
-                }
-            }()
-            //self.showAlertController(title: "Failed", message: errorMessage)
-            self.coordinator = nil
-        })
+        // TODO: handle errors
     }
     
-    func coordinatorDidBroadcastTransaction(with hash: String) {
-        self.coordinator?.stop(completion: {
-            //self.showAlertController(title: "Payment sent", message: "Tx hash: \(hash)")
-            self.coordinator = nil
-        })
+    func coordinatorDidBroadcastTransaction(with txHash: String) {
+        // TODO: poll blockchain to check for transaction's status and validity
+    }
+    
+    //MARK:- TableView functions
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return priceArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "priceCell", for: indexPath) as! priceTableViewCell
+        cell.pairLabel.text = "\(priceArray[indexPath.item][0])/ETH"
+        cell.oneExchangePrice.text = priceArray[indexPath.item][1]
+        cell.secondExchangePrice.text = priceArray[indexPath.item][3]
+        print(priceArray[indexPath.item])
+        //cell.textLabel?.textColor = UIColor.flatWhite
+        return cell
+    }
+    
+    func reloadTableData(){
+        MBProgressHUD.hide(for: self.view, animated: true)
+        tableView.reloadData()
+    }
+    
+    func showProgress(){
+        let loadingNotification = MBProgressHUD.showAdded(to: view, animated: true)
+        loadingNotification.mode = MBProgressHUDMode.indeterminate
+        loadingNotification.label.text = "Loading"
+    }
+    
+}
+extension Double {
+    /// Rounds the double to decimal places value
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
     }
 }
-
-
-

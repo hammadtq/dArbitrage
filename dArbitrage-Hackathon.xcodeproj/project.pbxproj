@@ -18,7 +18,6 @@
 		37DB94212168E1B20046586B /* KyberWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DB94202168E1B20046586B /* KyberWidget.framework */; };
 		37DB94222168E1BD0046586B /* KyberWidget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DB94202168E1B20046586B /* KyberWidget.framework */; };
 		37DB94232168E1BD0046586B /* KyberWidget.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 37DB94202168E1B20046586B /* KyberWidget.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		37DB94262168EB180046586B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37DB94252168EB180046586B /* ViewController.xib */; };
 		40FA0A13F11130A98B71FC88 /* Pods_dArbitrage_HackathonUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B135988BE35B587AFEFA07F /* Pods_dArbitrage_HackathonUITests.framework */; };
 		E0C2463F1E68B11E32659798 /* Pods_dArbitrage_HackathonTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 02A96C8A1D27945584C551C9 /* Pods_dArbitrage_HackathonTests.framework */; };
 /* End PBXBuildFile section */
@@ -71,7 +70,6 @@
 		37DB940C2168E0AE0046586B /* dArbitrage_HackathonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dArbitrage_HackathonUITests.swift; sourceTree = "<group>"; };
 		37DB940E2168E0AE0046586B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37DB94202168E1B20046586B /* KyberWidget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KyberWidget.framework; sourceTree = "<group>"; };
-		37DB94252168EB180046586B /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		4B135988BE35B587AFEFA07F /* Pods_dArbitrage_HackathonUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dArbitrage_HackathonUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5976327AFB5832AD35F8EFD3 /* Pods_dArbitrage_Hackathon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dArbitrage_Hackathon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C0EB6FAA672DF0589FE5739 /* Pods-dArbitrage-HackathonUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dArbitrage-HackathonUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-dArbitrage-HackathonUITests/Pods-dArbitrage-HackathonUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 			children = (
 				37DB93EC2168E0A90046586B /* AppDelegate.swift */,
 				37DB93EE2168E0A90046586B /* ViewController.swift */,
-				37DB94252168EB180046586B /* ViewController.xib */,
 				37DB93F02168E0A90046586B /* Main.storyboard */,
 				37DB93F32168E0AE0046586B /* Assets.xcassets */,
 				37DB93F52168E0AE0046586B /* LaunchScreen.storyboard */,
@@ -301,7 +298,6 @@
 				37DB93F72168E0AE0046586B /* LaunchScreen.storyboard in Resources */,
 				37DB93F42168E0AE0046586B /* Assets.xcassets in Resources */,
 				37DB93F22168E0A90046586B /* Main.storyboard in Resources */,
-				37DB94262168EB180046586B /* ViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,6 +384,7 @@
 				"${BUILT_PRODUCTS_DIR}/QRCodeReaderViewController/QRCodeReaderViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/SipHash/SipHash.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TrezorCrypto/TrezorCrypto.framework",
 				"${BUILT_PRODUCTS_DIR}/TrustCore/TrustCore.framework",
 				"${BUILT_PRODUCTS_DIR}/TrustKeystore/TrustKeystore.framework",
@@ -409,6 +406,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCodeReaderViewController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SipHash.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrezorCrypto.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TrustKeystore.framework",
