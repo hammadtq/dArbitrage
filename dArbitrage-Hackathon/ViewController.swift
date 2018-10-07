@@ -2,7 +2,7 @@
 //  ViewController.swift
 //  dArbitrage-Hackathon
 //
-//  Created by Gaurav Shukla on 10/6/18.
+//  Created by Hammad Tariq on 10/6/18.
 //  Copyright © 2018 uk.co.iologics. All rights reserved.
 //
 
@@ -36,7 +36,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     fileprivate var coordinator: KWCoordinator?
     var priceArray = [[String]]()
     var kyberArray = [[String]]()
-    var binanceArray = [[String]]()
+    var bancorArray = [[String]]()
+    //let supportedTokens = ["ETH", "KNC", "OMG", "SNT", "ELF", "POWR", "MANA", "BAT", "REQ", "GTO", "RDN", "APPC", "ENG", "SALT", "BQX", "ADX", "AST", "RCN", "ZIL", "DAI", "LINK", "IOST", "STORM", "BBO", "COFI", "MOC", "BITX"]
+    let supportedTokens = ["ETH", "KNC", "OMG", "SNT", "ELF", "POWR", "MANA", "BAT", "REQ", "GTO", "RCN", "DAI", "STORM", "BBO"]
     @IBOutlet weak var buyTokenTextField: UITextField!
     
     @IBOutlet weak var buyButton: UIButton!
@@ -126,28 +128,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func getOtherPrices(){
-        getBinancePrices(completeFunc: combineMarketData)
-    }
-    
-    func getBinancePrices(completeFunc: @escaping () -> Void) {
-        print("getting Binance data")
-        let todoEndpoint: String = "https://api.binance.com/api/v3/ticker/price"
-        Alamofire.request(todoEndpoint, method: .get)
-            .responseJSON { response in
-                //print (response.result.isSuccess)
-                if response.result.isSuccess {
-                    let json : JSON = JSON(response.result.value!)
-                    //print(json)
-                    for element in json{
-                        //print (element)
-                        let eachPrice = [element.1["symbol"].stringValue, element.1["price"].stringValue]
-                        self.binanceArray.append(eachPrice)
+        
+        let group = DispatchGroup()
+        
+        for token in supportedTokens{
+            group.enter()
+            let urlString: String = "https://api.bancor.network/0.1/currencies/\(token)/ticker?fromCurrencyCode=ETH&displayCurrencyCode=ETH"
+            Alamofire.request(urlString, method: .get)
+                .responseJSON { response in
+                    //print (response.result.isSuccess)
+                    if response.result.isSuccess {
+                        let json : JSON = JSON(response.result.value!)
+                        print(json)
+                        for element in json{
+                            //print (element)
+                            let eachPrice = [element.1["symbol"].stringValue, element.1["price"].stringValue]
+                            self.bancorArray.append(eachPrice)
+                        }
+                        group.leave()
+                    } else {
+                        print("Error: \(String(describing: response.result.error))")
+                        
                     }
-                    completeFunc()
-                } else {
-                    print("Error: \(String(describing: response.result.error))")
-                    
-                }
+            }
+        }
+        
+        
+        group.notify(queue: .main) {
+            print("all requests done")
+            self.combineMarketData()
         }
     }
     
@@ -155,11 +164,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("combining data")
         //print(kyberArray)
         for kyberPair in kyberArray{
-            let supportedTokens = ["ETH", "KNC", "OMG", "SNT", "ELF", "POWR", "MANA", "BAT", "REQ", "GTO", "RDN", "APPC", "ENG", "SALT", "BQX", "ADX", "AST", "RCN", "ZIL", "DAI", "LINK", "IOST", "STORM", "BBO", "COFI", "MOC", "BITX"]
             if supportedTokens.contains(kyberPair[0]) {
-                let searchString = "\(kyberPair[0])ETH"
+                let searchString = "\(kyberPair[0])"
                 //print(searchString)
-                let result = binanceArray.filter { (dataArray:[String]) -> Bool in
+                let result = bancorArray.filter { (dataArray:[String]) -> Bool in
                     return dataArray.filter({ (string) -> Bool in
                         return string.contains(searchString)
                     }).count > 0
@@ -167,8 +175,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 if(!result.isEmpty){
                     //print(result)
-                    for binancePair in result{
-                        //print ("Binance pair \(binancePair)")
+                    for bancorPair in result{
+                        //print ("bancor pair \(bancorPair)")
                         //print("Kyber pair \(kyberPair)")
                         
                         
@@ -179,29 +187,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         var sellExchangeLabel = ""
                         var percentageLabel = ""
                         let kyberPairPrice = Double(kyberPair[1])!
-                        let binancePairPrice = Double(binancePair[1])!
-                        if kyberPairPrice < binancePairPrice {
+                        let bancorPairPrice = Double(bancorPair[1])!
+                        if kyberPairPrice < bancorPairPrice {
                             
                             
-                            let difference = binancePairPrice - kyberPairPrice
-                            let average = (kyberPairPrice + binancePairPrice)/2
+                            let difference = bancorPairPrice - kyberPairPrice
+                            let average = (kyberPairPrice + bancorPairPrice)/2
                             let percentageIncrease = (difference/average)*100
                             
                             buyExchangeLabel = "Kyber"
                             buyExchangePrice = String(format: "%.8f", kyberPairPrice)
-                            sellExchangeLabel = "Binance"
-                            sellExchangePrice = binancePair[1]
+                            sellExchangeLabel = "Bancor"
+                            sellExchangePrice = String(format: "%.8f", bancorPairPrice)
                             percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
                             
                         }else {
                             
                             
                             
-                            let difference = binancePairPrice - kyberPairPrice
-                            let average = (kyberPairPrice + binancePairPrice)/2
+                            let difference = kyberPairPrice - bancorPairPrice
+                            let average = (kyberPairPrice + bancorPairPrice)/2
                             let percentageIncrease = (difference/average)*100
-                            buyExchangeLabel = "Binance"
-                            buyExchangePrice = binancePair[1]
+                            buyExchangeLabel = "Bancor"
+                            buyExchangePrice = String(format: "%.8f", bancorPairPrice)
                             sellExchangeLabel = "Kyber"
                             sellExchangePrice = String(format: "%.8f", kyberPairPrice)
                             percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"

@@ -2,7 +2,7 @@
 //  DetailsViewController.swift
 //  dArbitrage-Hackathon
 //
-//  Created by Gaurav Shukla on 10/7/18.
+//  Created by Hammad Tariq on 10/7/18.
 //  Copyright © 2018 uk.co.iologics. All rights reserved.
 //
 
