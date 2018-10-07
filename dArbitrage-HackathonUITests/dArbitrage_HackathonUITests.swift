@@ -2,7 +2,7 @@
 //  dArbitrage_HackathonUITests.swift
 //  dArbitrage-HackathonUITests
 //
-//  Created by Gaurav Shukla on 10/6/18.
+//  Created by Hammad Tariq on 10/6/18.
 //  Copyright © 2018 uk.co.iologics. All rights reserved.
 //
 

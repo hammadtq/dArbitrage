@@ -51,9 +51,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         getKyberPrices(completeFunc: self.getOtherPrices)
     }
     
-    @IBAction func buyButtonPressed(_ sender: Any) {
-        buyTokens(receiveToken: "ETH", receiveAmount: 0.001604, network: KWEnvironment.ropsten, signer: "", commissionId: "", pinnedTokens: "ETH_KNC_DAI")
+    @IBAction func profileButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "goToProfile", sender: self)
     }
+    
     
     func payTokens(receiveAddr : String, receiveToken : String, receiveAmount : Double, network : KWEnvironment,
                    signer : String, commissionId : String, productName : String, productAvatar : String, productAvatarImage : UIImage){

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1959335883A0FBA9DB323152 /* Pods_dArbitrage_Hackathon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5976327AFB5832AD35F8EFD3 /* Pods_dArbitrage_Hackathon.framework */; };
 		372AD1962169F02F00EAC336 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372AD1952169F02F00EAC336 /* DetailsViewController.swift */; };
+		372AD198216A3DA400EAC336 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372AD197216A3DA400EAC336 /* ProfileViewController.swift */; };
 		37DB93ED2168E0A90046586B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DB93EC2168E0A90046586B /* AppDelegate.swift */; };
 		37DB93EF2168E0A90046586B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DB93EE2168E0A90046586B /* ViewController.swift */; };
 		37DB93F22168E0A90046586B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37DB93F02168E0A90046586B /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		02A96C8A1D27945584C551C9 /* Pods_dArbitrage_HackathonTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_dArbitrage_HackathonTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0746B11CD54E3AB913AEB942 /* Pods-dArbitrage-Hackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dArbitrage-Hackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-dArbitrage-Hackathon/Pods-dArbitrage-Hackathon.release.xcconfig"; sourceTree = "<group>"; };
 		372AD1952169F02F00EAC336 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		372AD197216A3DA400EAC336 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		37DB93E92168E0A90046586B /* dArbitrage-Hackathon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dArbitrage-Hackathon.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		37DB93EC2168E0A90046586B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37DB93EE2168E0A90046586B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				37DB93EC2168E0A90046586B /* AppDelegate.swift */,
 				37DB93EE2168E0A90046586B /* ViewController.swift */,
 				372AD1952169F02F00EAC336 /* DetailsViewController.swift */,
+				372AD197216A3DA400EAC336 /* ProfileViewController.swift */,
 				37DB93F02168E0A90046586B /* Main.storyboard */,
 				37DB93F32168E0AE0046586B /* Assets.xcassets */,
 				37DB93F52168E0AE0046586B /* LaunchScreen.storyboard */,
@@ -450,6 +453,7 @@
 			files = (
 				37DB93EF2168E0A90046586B /* ViewController.swift in Sources */,
 				37DB93ED2168E0A90046586B /* AppDelegate.swift in Sources */,
+				372AD198216A3DA400EAC336 /* ProfileViewController.swift in Sources */,
 				372AD1962169F02F00EAC336 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
