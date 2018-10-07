@@ -20,6 +20,7 @@ class priceTableViewCell: UITableViewCell {
     @IBOutlet weak var secondExchangeLabel: UILabel!
     @IBOutlet weak var oneExchangePrice: UILabel!
     @IBOutlet weak var secondExchangePrice: UILabel!
+    @IBOutlet weak var statusLight: UIImageView!
     override func awakeFromNib() {
         super.awakeFromNib()
         oneExchangePrice.adjustsFontSizeToFitWidth = true
@@ -33,7 +34,6 @@ class priceTableViewCell: UITableViewCell {
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var selectedCell: IndexPath = []
-    fileprivate var coordinator: KWCoordinator?
     var priceArray = [[String]]()
     var kyberArray = [[String]]()
     var bancorArray = [[String]]()
@@ -53,56 +53,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func profileButtonTapped(_ sender: Any) {
         performSegue(withIdentifier: "goToProfile", sender: self)
-    }
-    
-    
-    func payTokens(receiveAddr : String, receiveToken : String, receiveAmount : Double, network : KWEnvironment,
-                   signer : String, commissionId : String, productName : String, productAvatar : String, productAvatarImage : UIImage){
-        do {
-            self.coordinator = try KWPayCoordinator(
-                baseViewController: self,
-                receiveAddr : receiveAddr,
-                receiveToken: receiveToken,
-                receiveAmount: receiveAmount,
-                network: network, // ETH network, default ropsten
-                signer: signer,
-                commissionId: commissionId,
-                productName: productName,
-                productAvatar: productAvatar,
-                productAvatarImage: productAvatarImage
-            )
-        } catch {}
-    }
-    
-    func swapTokens(network : KWEnvironment,
-                    signer : String, commissionId : String){
-        do {
-            self.coordinator = try KWSwapCoordinator(
-                baseViewController: self,
-                network: network, // ETH network, default ropsten
-                signer: signer,
-                commissionId: commissionId
-            )
-        } catch {}
-    }
-    
-    func buyTokens(receiveToken : String, receiveAmount : Double, network : KWEnvironment,
-                   signer : String, commissionId : String, pinnedTokens : String){
-        do {
-            self.coordinator = try KWBuyCoordinator(
-                baseViewController: self,
-                receiveToken: receiveToken,
-                receiveAmount: receiveAmount,
-                network: network, // ETH network, default ropsten
-                signer: nil,
-                commissionId: nil
-            )
-            // set delegate to receive transaction data
-            self.coordinator?.delegate = self as? KWCoordinatorDelegate
-            
-            // show the widget
-            self.coordinator?.start()
-        } catch {}
     }
     
     func getKyberPrices(completeFunc: @escaping () -> Void) {
@@ -200,7 +150,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             buyExchangePrice = String(format: "%.8f", kyberPairPrice)
                             sellExchangeLabel = "Bancor"
                             sellExchangePrice = String(format: "%.8f", bancorPairPrice)
-                            percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
+                            percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))"
                             
                         }else {
                             
@@ -213,7 +163,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             buyExchangePrice = String(format: "%.8f", bancorPairPrice)
                             sellExchangeLabel = "Kyber"
                             sellExchangePrice = String(format: "%.8f", kyberPairPrice)
-                            percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))%"
+                            percentageLabel = "\(percentageIncrease.rounded(toPlaces: 3))"
                         }
                         let eachPrice = [tradePair, percentageLabel, buyExchangeLabel, buyExchangePrice, sellExchangeLabel, sellExchangePrice]
                         priceArray.append(eachPrice)
@@ -226,18 +176,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.reloadTableData()
     }
     
-    func coordinatorDidCancel() {
-        // TODO: handle user cancellation
-    }
-    
-    func coordinatorDidFailed(with error: KWError) {
-        // TODO: handle errors
-    }
-    
-    func coordinatorDidBroadcastTransaction(with txHash: String) {
-        // TODO: poll blockchain to check for transaction's status and validity
-    }
-    
     //MARK:- TableView functions
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return priceArray.count
@@ -246,13 +184,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "priceCell", for: indexPath) as! priceTableViewCell
         cell.pairLabel.text = "\(priceArray[indexPath.item][0])/ETH"
-        cell.differenceLabel.text = priceArray[indexPath.item][1]
+        cell.differenceLabel.text = "\(priceArray[indexPath.item][1])%"
         cell.oneEchangeLabel.text = priceArray[indexPath.item][2]
         cell.oneExchangePrice.text = priceArray[indexPath.item][3]
         cell.secondExchangeLabel.text = priceArray[indexPath.item][4]
         cell.secondExchangePrice.text = priceArray[indexPath.item][5]
-        //print(priceArray[indexPath.item])
-        //cell.textLabel?.textColor = UIColor.flatWhite
+        let priceDouble = Double(priceArray[indexPath.item][1]) ?? 1.00
+        if priceDouble < 1.00 {
+            cell.statusLight.image = UIImage(named: "red_light")
+        }else{
+            cell.statusLight.image = UIImage(named: "green_light")
+        }
+        
         return cell
     }
     
@@ -269,6 +212,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func reloadTableData(){
+        priceArray = priceArray.sorted(by: { $0[1] > $1[1] })
+        print(priceArray)
         MBProgressHUD.hide(for: self.view, animated: true)
         tableView.reloadData()
     }
